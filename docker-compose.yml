@@ -1,38 +1,38 @@
-version: '3'
-
+version: '2'
 services:
-  mysql:
-  	image: mysql
-	container_name: pwcho2018-84177
-  	environment:
-		- MYSQL_ROOT_PASSWORD = root
-    		- MYSQL_DATABASE = myDB
-    		- MYSQL_USER = achepov
-    		- MYSQL_PASSWORD = root
-  	ports:
-    		- "3306:3306"
-  	networks:
-		Bridge-Zadanie1:
-			ipv4_address: 10.0.10.3
 
-  java:
-	image: antonchepov/pwcho2018
-	container_name: javaKont
-	depends_on:
-		-mysql
-	links:
-		-"mysql:database"
-	networks:
-		-Bridge-Zadanie1
-	stdin_open: true
-	tty: true
+ mysql:
+  image: mysql
+  container_name: pwcho2018-84177
+  environment:
+   - MYSQL_ROOT_PASSWORD=root
+   - MYSQL_DATABASE=myDB
+   - MYSQL_USER=achepov
+   - MYSQL_PASSWORD=root
+  ports:
+   - "3306:3306"
+  networks:
+   Bridge-Zadanie1:
+    ipv4_address: 10.0.10.3
+
+ java:
+  image: antonchepov/lab7
+  container_name: javaKont
+  depends_on:
+   - mysql
+  links:
+   - "mysql:database"
+  networks:
+   - Bridge-Zadanie1
+  stdin_open: true
+  tty: true
+
 volumes:
-  mysql:
+ mysql:
 networks:
-  Bridge-Zadanie1:
-	driver: bridge
-	ipam:
-	   config:
-		-subnet: 10.0.10.0/24
-		 gateway 10.0.10.1
-	
+ Bridge-Zadanie1:
+  driver: bridge
+  ipam:
+   config:
+    - subnet: 10.0.10.0/24
+      gateway: 10.0.10.1
